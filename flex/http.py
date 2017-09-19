@@ -317,7 +317,8 @@ class Response(URLMixin):
     def data(self):
         if self.content is EMPTY:
             return self.content
-        elif self.content_type and self.content_type.startswith('application/json'):
+        elif self.content_type and (self.content_type.startswith('application/json') or
+                                    self.content_type.startswith('application/vnd.api+json')):
             try:
                 if isinstance(self.content, six.binary_type):
                     return json.loads(six.text_type(self.content, encoding='utf-8'))
