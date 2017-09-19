@@ -97,7 +97,8 @@ class Request(URLMixin):
             return self.body
         elif self.body is EMPTY:
             return EMPTY
-        elif self.content_type and self.content_type.startswith('application/json'):
+        elif self.content_type and (self.content_type.startswith('application/json') or
+                                    self.content_type.startswith('application/vnd.api+json')):
             try:
                 if isinstance(self.body, six.binary_type):
                     return json.loads(self.body.decode('utf-8'))
